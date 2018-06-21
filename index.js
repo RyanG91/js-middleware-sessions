@@ -22,10 +22,10 @@ app.use('/login', express.static(__dirname + '/public'));
 
 app.post('/login', (req, res) => {
     if (req.body.email==="admin@admin.com" && req.body.password ==="password123") {
-    req.session.login = true  
-    res.redirect('secure/welcome');         
-    } else {                
-    res.send('Try again');                  
+    req.session.login = true
+    res.redirect('secure/welcome');
+    } else {
+    res.send('Try again');
     }
 })
 
@@ -36,13 +36,13 @@ app.get('/auth/login', (req, res) => {
 });
 
 app.get('/auth/logout', (req, res) => {
-    req.session.login = false    
+    req.session.login = false
     res.send('You have logged out')
 });
 
-app.get('/secure/welcome', (req, res) => {
+app.use('/secure/welcome', (req, res) => {
     if (req.session.login === true) {
-        res.send('Secure page')
+        res.sendFile(__dirname + '/public/welcome.html')
     } else {
         res.send('Error 401')
     }

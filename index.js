@@ -35,7 +35,7 @@ app.get('/auth/login', (req, res) => {
     res.send("You've logged in!")
 });
 
-app.get('/auth/logout', (req, res) => {
+app.use('/auth/logout', (req, res) => {
     req.session.login = false
     res.send('You have logged out')
 });

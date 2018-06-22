@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(express.static('assests'))
+
 app.use(session({
     secret: 'bob',
     resave: false,
@@ -44,15 +46,15 @@ app.use('/secure/welcome', (req, res) => {
     if (req.session.login === true) {
         res.sendFile(__dirname + '/public/welcome.html')
     } else {
-        res.send('Error 401')
+        res.status(403).send()
     }
 });
 
 app.get('/secure/dog', (req, res) => {
     if (req.session.login === true) {
-        res.send('Dog Picture')
+        res.send('<img src="/images/dog.jpg" />')
     } else {
-        res.send('Error 401')
+      res.status(403).send()
     }
 });
 
